@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "707273997364",
+    "firebase_url": "https://pedi-tu-remis-2118a.firebaseio.com",
+    "project_id": "pedi-tu-remis-2118a",
+    "storage_bucket": "pedi-tu-remis-2118a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:707273997364:android:4645b94eabe0b8159d1e61",
+        "android_client_info": {
+          "package_name": "com.creativedesign.PediTuRemis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "707273997364-974e9fuggilqpga7aq7l8duloq30qmnc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQK1JKsgxM_ew6fJw7aaRmiQ4k8bNfQPA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "707273997364-974e9fuggilqpga7aq7l8duloq30qmnc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

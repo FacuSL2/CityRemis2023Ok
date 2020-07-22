@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.creativedesign.PediTuRemis">
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality. 
+    -->
+    <application
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:theme="@style/AppTheme.NoActionBar"
+        android:name="com.creativedesign.PediTuRemis.ApplicationClass"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        <activity android:name="com.creativedesign.PediTuRemis.sosact"></activity>
+
+        <activity android:name="com.creativedesign.PediTuRemis.Login.LauncherActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.creativedesign.PediTuRemis.Login.AuthenticationActivity" />
+
+        <activity android:name="com.creativedesign.PediTuRemis.Customer.CustomerMapActivity" />
+
+        <activity android:name="com.creativedesign.PediTuRemis.Customer.CustomerSettingsActivity" />
+        <activity android:name="com.creativedesign.PediTuRemis.Driver.DriverSettingsActivity" />
+        <activity android:name="com.creativedesign.PediTuRemis.History.HistoryActivity" />
+        <activity android:name="com.creativedesign.PediTuRemis.History.HistorySingleActivity" />
+        <activity
+            android:name="com.creativedesign.PediTuRemis.Driver.DriverMapActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+        <uses-library android:name="com.google.android.maps" />
+    </application>
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+</manifest>
