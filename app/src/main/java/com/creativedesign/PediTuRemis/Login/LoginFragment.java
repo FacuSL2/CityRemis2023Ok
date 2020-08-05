@@ -22,7 +22,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     private EditText mEmail, mPassword;
 
-
     private View view;
 
     @Override
@@ -75,8 +74,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         });
     }
 
-
-
     @Override
     public void onClick(View view) {
         switch (view.getId()){
@@ -89,9 +86,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-
-
-
     /**
      * Initializes the design Elements and calls clickListeners for them
      */
@@ -100,10 +94,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         mPassword = view.findViewById(R.id.password);
         TextView mForgotButton = view.findViewById(R.id.forgotButton);
         Button mLogin = view.findViewById(R.id.login);
-
-
         mForgotButton.setOnClickListener(this);
         mLogin.setOnClickListener(this);
-
     }
 }

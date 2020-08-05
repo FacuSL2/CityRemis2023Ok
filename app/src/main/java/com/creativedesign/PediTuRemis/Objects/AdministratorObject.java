@@ -2,27 +2,21 @@ package com.creativedesign.PediTuRemis.Objects;
 
 import com.google.firebase.database.DataSnapshot;
 
-public class DriverObject{
+public class AdministratorObject {
 
     private String  id = "",
-                    name = "",
-                    phone = "",
-                    car = "--",
-                    profileImage = "default",
-                    service;
-
-    private float ratingsAvg = 0;
-
-    private int tripsAvailable = 0;
+            name = "",
+            phone = "",
+            profileImage = "default";
 
     private LocationObject mLocation;
 
     private Boolean active = true;
 
-    public DriverObject(String id) {
+    public AdministratorObject(String id) {
         this.id = id;
     }
-    public DriverObject() {}
+    public AdministratorObject() {}
 
 
     /**
@@ -39,35 +33,12 @@ public class DriverObject{
         if(dataSnapshot.child("phone").getValue()!=null){
             phone = dataSnapshot.child("phone").getValue().toString();
         }
-        if(dataSnapshot.child("car").getValue()!=null){
-            car = dataSnapshot.child("car").getValue().toString();
-        }
         if(dataSnapshot.child("profileImageUrl").getValue()!=null){
             profileImage = dataSnapshot.child("profileImageUrl").getValue().toString();
         }
         if (dataSnapshot.child("activated").getValue() != null) {
             active = Boolean.parseBoolean(dataSnapshot.child("activated").getValue().toString());
         }
-        if (dataSnapshot.child("service").getValue() != null) {
-            service = dataSnapshot.child("service").getValue().toString();
-        }
-        if (dataSnapshot.child("tripsAvailable").getValue() != null) {
-            tripsAvailable = Integer.parseInt(dataSnapshot.child("tripsAvailable").getValue().toString());
-        }
-        int ratingSum = 0;
-        float ratingsTotal = 0;
-        for (DataSnapshot child : dataSnapshot.child("rating").getChildren()){
-            ratingSum = ratingSum + Integer.valueOf(child.getValue().toString());
-            ratingsTotal++;
-        }
-        if(ratingsTotal!= 0){
-            ratingsAvg = ratingSum/ratingsTotal;
-        }
-    }
-
-
-    public String getService() {
-        return service;
     }
 
     public String getId() {
@@ -76,10 +47,6 @@ public class DriverObject{
 
     public String getName() {
         return name;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public void setName(String name) {
@@ -94,28 +61,12 @@ public class DriverObject{
         this.phone = phone;
     }
 
-    public String getCar() {
-        return car;
-    }
-
-    public void setCar(String car) {
-        this.car = car;
-    }
-
     public String getProfileImage() {
         return profileImage;
     }
 
     public void setProfileImage(String profileImage) {
         this.profileImage = profileImage;
-    }
-
-    public float getRatingsAvg() {
-        return ratingsAvg;
-    }
-
-    public void setRatingsAvg(float ratingsAvg) {
-        this.ratingsAvg = ratingsAvg;
     }
 
     public LocationObject getLocation() {
@@ -134,11 +85,4 @@ public class DriverObject{
         return active;
     }
 
-    public int getTripsAvailable() {
-        return tripsAvailable;
-    }
-
-    public void setTripsAvailable(int tripsAvailable) {
-        this.tripsAvailable = tripsAvailable;
-    }
 }

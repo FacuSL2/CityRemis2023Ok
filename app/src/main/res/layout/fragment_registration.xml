@@ -90,7 +90,6 @@
         app:selectedBackground="@color/colorPrimaryDark">
 
         <com.addisonelliott.segmentedbutton.SegmentedButton
-
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -111,6 +110,18 @@
             app:selectedTextColor="@color/colorPrimary"
             app:text="@string/driver"
             app:textColor="@color/white" />
+
+        <com.addisonelliott.segmentedbutton.SegmentedButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            app:drawable="@drawable/ic_admin"
+            app:drawableGravity="top"
+            app:selectedTextColor="@color/colorPrimary"
+            app:text="@string/admin"
+            app:textColor="@color/white" />
+
     </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
 
 

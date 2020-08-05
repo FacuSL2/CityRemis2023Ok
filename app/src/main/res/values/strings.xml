@@ -35,6 +35,7 @@
     <string name="logout">Desconectar</string>
     <string name="customer">Pasajero</string>
     <string name="driver">Conductor</string>
+    <string name="admin">Administrador</string>
     <string name="getting_driver">Buscando Vehículo....</string>
     <string name="looking_driver">Buscando Vehículo…</string>
     <string name="driver_here">Su vehículo ha llegado</string>
@@ -263,6 +264,8 @@
         <item>Customer</item>
         <item>Driver</item>
     </string-array>
-
+    <string name="driver_search">Buscar Conductor</string>
+    <string name="active">Activo</string>
+    <string name="trips_available">Viajes Disponibles</string>
 
 </resources>

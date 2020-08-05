@@ -20,7 +20,6 @@ import com.creativedesign.PediTuRemis.R;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
  * Fragment Responsible for registering a new user
  */
@@ -56,8 +55,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         initializeObjects();
     }
 
-
-
     /**
      * Register the user, but before that check if every field is correct.
      * After that registers the user and creates an entry for it oin the database
@@ -80,8 +77,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             return;
         }
 
-
-
         final String name = mName.getText().toString();
         final String email = mEmail.getText().toString();
         final String password = mPassword.getText().toString();
@@ -94,6 +89,9 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 break;
             case 1:
                 accountType = "Drivers";
+                break;
+            case 2:
+                accountType = "Admin";
                 break;
             default:
                 accountType = "Customers";
@@ -118,7 +116,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
     }
 
-
     /**
      * Initializes the design Elements and calls clickListeners for them
      */
@@ -129,7 +126,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         Button mRegister = view.findViewById(R.id.register);
         mRadioGroup = view.findViewById(R.id.radioRealButtonGroup);
 
-        mRadioGroup.setPosition(0, false);
+        mRadioGroup.setPosition(2, false); //0-CUSTOMER   1-DRIVER     2-ADMIN
         mRegister.setOnClickListener(this);
     }
     @Override

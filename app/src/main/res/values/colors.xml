@@ -22,6 +22,7 @@
     <color name="black">#000000</color>
     <color name="lightGrey">#9C9C9C</color>
     <color name="darkblue">#18293A</color>
+    <color name="colorGrayLight">#D1D1D1</color>
 </resources>
 
 

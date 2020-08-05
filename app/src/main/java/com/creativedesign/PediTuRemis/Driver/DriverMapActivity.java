@@ -216,6 +216,15 @@ public class DriverMapActivity extends AppCompatActivity implements NavigationVi
                 mWorkingSwitch.setChecked(false);
                 return;
             }
+            if(mDriver.getTripsAvailable() == 0){
+                new AlertDialog.Builder(this)
+                        .setTitle("Sin viajes disponibles")
+                        .setMessage("No tiene créditos disponibles, pongase en contacto con el administrador.")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton(android.R.string.yes, null).show();
+                mWorkingSwitch.setChecked(false);
+                return;
+            }
             if (isChecked){
                 if(mLastLocation != null) {
                     if(mMap != null) {
@@ -488,7 +497,7 @@ public class DriverMapActivity extends AppCompatActivity implements NavigationVi
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                   connectDriver();
+                    connectDriver();
                 }else
                     disconnectDriver();
             }
