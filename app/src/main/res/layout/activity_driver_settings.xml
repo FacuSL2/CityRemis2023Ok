@@ -79,6 +79,19 @@
                     android:hint="@string/car"/>
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:textColorHint="#cccccc">
+                <EditText
+                    android:id="@+id/creditos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:hint="@string/trips_available"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
 
             <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
                 android:id="@+id/radioRealButtonGroup"

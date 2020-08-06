@@ -38,7 +38,7 @@ import java.util.Map;
  */
 public class DriverSettingsActivity extends AppCompatActivity {
 
-    private EditText mNameField, mPhoneField, mCarField;
+    private EditText mNameField, mPhoneField, mCarField, mTripsAvailable;
 
     private ImageView mProfileImage;
 
@@ -62,6 +62,7 @@ public class DriverSettingsActivity extends AppCompatActivity {
         mNameField = findViewById(R.id.name);
         mPhoneField = findViewById(R.id.phone);
         mCarField = findViewById(R.id.car);
+        mTripsAvailable = findViewById(R.id.creditos);
 
         mProfileImage = findViewById(R.id.profileImage);
 
@@ -118,6 +119,8 @@ public class DriverSettingsActivity extends AppCompatActivity {
                 mNameField.setText(mDriver.getName());
                 mPhoneField.setText(mDriver.getPhone());
                 mCarField.setText(mDriver.getCar());
+                mTripsAvailable.setText(String.valueOf(mDriver.getTripsAvailable()));
+                mTripsAvailable.setEnabled(false);
 
                 if (!mDriver.getProfileImage().equals("default"))
                     Glide.with(getApplication()).load(mDriver.getProfileImage()).apply(RequestOptions.circleCropTransform()).into(mProfileImage);

@@ -114,7 +114,7 @@ public class DriverMapActivity extends AppCompatActivity implements NavigationVi
 
     private FusedLocationProviderClient mFusedLocationClient;
 
-    private Button  mRideStatus, mMaps, mCall, mCancelRide, waiting;
+    private Button mRideStatus, mMaps, mCall, mCancelRide, waiting;
 
     private Switch mWorkingSwitch;
 
@@ -264,8 +264,12 @@ public class DriverMapActivity extends AppCompatActivity implements NavigationVi
 
                     break;
                 case 2:
-                    if(mCurrentRide != null)
+                    if(mCurrentRide != null) {
                         mCurrentRide.recordRide();
+                        Map newUserMap = new HashMap();
+                        newUserMap.put("tripsAvailable", mDriver.getTripsAvailable() - 1);
+                        mUser.updateChildren(newUserMap);
+                    }
                     endRide();
                     break;
             }
