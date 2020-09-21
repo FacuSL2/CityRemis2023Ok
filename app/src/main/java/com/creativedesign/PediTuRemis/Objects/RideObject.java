@@ -1,9 +1,19 @@
 package com.creativedesign.PediTuRemis.Objects;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.text.format.DateFormat;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.creativedesign.PediTuRemis.R;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
 import com.google.android.gms.maps.model.LatLng;
@@ -25,17 +35,22 @@ import java.util.Locale;
  */
 public class RideObject {
 
-    private String id;
+    private String id,  name = ""
+            ;
+
 
     private LocationObject pickup,
-                    current,
-                    destination;
+            current,
+            destination;
 
     private String  requestService = "type_1", car = "--";
 
 
     private DriverObject mDriver;
     private CustomerObject mCustomer;
+
+    DatabaseReference rideRef;
+
 
     Activity activity;
 
@@ -82,6 +97,44 @@ public class RideObject {
     }
 
 
+
+
+    public void showDialog(Activity activity) {
+        try {
+            RideObject mTempRide = (RideObject) this.clone();
+            final Dialog dialog = new Dialog(activity);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                    WindowManager.LayoutParams.MATCH_PARENT);
+            dialog.setCancelable(false);
+            dialog.setContentView(R.layout.dialog_ride_review);
+
+            Button mConfirm = dialog.findViewById(R.id.confirm);
+            RatingBar mRate = dialog.findViewById(R.id.rate);
+            TextView mName = dialog.findViewById(R.id.name);;
+            ImageView mImage = dialog.findViewById(R.id.image);
+
+            mName.setText(mTempRide.getDriver().getName());
+
+            if (!mCustomer.getProfileImage().equals("default"))
+                Glide.with(activity).load(mCustomer.getProfileImage()).apply(RequestOptions.circleCropTransform()).into(mImage);
+
+            mConfirm.setOnClickListener(view -> {
+                if (mRate.getNumStars() == 0) {
+                    return;
+                }
+                mTempRide.getRideRef().child("rating").setValue(mRate.getRating());
+                dialog.dismiss();
+            });
+            dialog.show();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
     public void parseData(DataSnapshot dataSnapshot){
         id = dataSnapshot.getKey();
 
@@ -97,13 +150,15 @@ public class RideObject {
         if(dataSnapshot.child("pickup").child("lat").getValue()!=null && dataSnapshot.child("pickup").child("lng").getValue()!=null){
             pickup.setCoordinates(
                     new LatLng(Double.parseDouble(dataSnapshot.child("pickup").child("lat").getValue().toString()),
-                                Double.parseDouble(dataSnapshot.child("pickup").child("lng").getValue().toString())));
+                            Double.parseDouble(dataSnapshot.child("pickup").child("lng").getValue().toString())));
         }
         if(dataSnapshot.child("destination").child("lat").getValue()!=null && dataSnapshot.child("destination").child("lng").getValue()!=null){
             destination.setCoordinates(
                     new LatLng(Double.parseDouble(dataSnapshot.child("destination").child("lat").getValue().toString()),
-                                Double.parseDouble(dataSnapshot.child("destination").child("lng").getValue().toString())));
+                            Double.parseDouble(dataSnapshot.child("destination").child("lng").getValue().toString())));
         }
+
+        rideRef = FirebaseDatabase.getInstance().getReference().child("ride_info").child(this.id);
 
 
         if(dataSnapshot.child("customerId").getValue() != null){
@@ -139,6 +194,8 @@ public class RideObject {
             rating = Integer.parseInt(dataSnapshot.child("rating").getValue().toString());
         }
     }
+
+
 
     public void postRideInfo(){
         DatabaseReference driverRef = FirebaseDatabase.getInstance().getReference().child("ride_info");
@@ -232,6 +289,13 @@ public class RideObject {
         this.requestService = requestService;
     }
 
+    public String getNameDash() {
+        if(name.isEmpty()){
+            return "--";
+        }
+        return name;
+    }
+
     public float getRideDistance() {
         return rideDistance;
     }
@@ -243,12 +307,17 @@ public class RideObject {
         return id;
     }
 
+
     public Boolean getEnded() {
         return ended;
     }
 
     public Double getRidePrice() {
         return ridePrice;
+    }
+
+    public DatabaseReference getRideRef() {
+        return rideRef;
     }
 
     public Long getTimestamp() {
