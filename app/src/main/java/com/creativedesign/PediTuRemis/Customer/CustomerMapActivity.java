@@ -767,6 +767,8 @@ public class CustomerMapActivity extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists() && dataSnapshot.getChildrenCount()>0){
+
+
                     mDriverInfo.setVisibility(View.VISIBLE);
                     mRadioLayout.setVisibility(View.GONE);
 
@@ -827,6 +829,9 @@ public class CustomerMapActivity extends AppCompatActivity
      * and clearing the map from markers
      */
     private void endRide(){
+
+        mCurrentRide.showDialog(CustomerMapActivity.this);
+
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         requestBol = false;
         if(geoQuery != null)
