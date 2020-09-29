@@ -216,7 +216,7 @@ public class DriverMapActivity extends AppCompatActivity implements NavigationVi
                 mWorkingSwitch.setChecked(false);
                 return;
             }
-            if(mDriver.getTripsAvailable() == 0){
+            if(mDriver.getTripsAvailable() <= 0){
                 new AlertDialog.Builder(this)
                         .setTitle("Sin viajes disponibles")
                         .setMessage("No tiene créditos disponibles, pongase en contacto con el administrador.")
@@ -271,6 +271,14 @@ public class DriverMapActivity extends AppCompatActivity implements NavigationVi
                         mUser.updateChildren(newUserMap);
                     }
                     endRide();
+                    if(mDriver.getTripsAvailable() <= 0){
+                        new AlertDialog.Builder(this)
+                                .setTitle("Sin viajes disponibles")
+                                .setMessage("No tiene créditos disponibles, pongase en contacto con el administrador.")
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setPositiveButton(android.R.string.yes, null).show();
+                        mWorkingSwitch.setChecked(false);
+                    }
                     break;
             }
         });
@@ -767,6 +775,7 @@ public class DriverMapActivity extends AppCompatActivity implements NavigationVi
         mCustomerProfileImage.setImageResource(R.mipmap.ic_default_user);
 
         mMap.clear();
+
     }
 
 

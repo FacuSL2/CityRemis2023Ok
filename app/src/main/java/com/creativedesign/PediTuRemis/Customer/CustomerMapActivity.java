@@ -1,10 +1,13 @@
 package com.creativedesign.PediTuRemis.Customer;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -53,9 +56,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewTreeObserver;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -830,7 +836,7 @@ public class CustomerMapActivity extends AppCompatActivity
      */
     private void endRide(){
 
-        mCurrentRide.showDialog(CustomerMapActivity.this);
+        showingDialog();
 
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         requestBol = false;
@@ -882,8 +888,43 @@ public class CustomerMapActivity extends AppCompatActivity
         autocompleteFragmentTo.setText(getString(R.string.to));
         autocompleteFragmentFrom.setText(getString(R.string.from));
         mCurrentLocation.setImageDrawable(getResources().getDrawable(R.drawable.ic_location_on_grey_24dp));
+    }
 
-        mCurrentRide = new RideObject(CustomerMapActivity.this, null);
+    public void showingDialog() {
+        try {
+            final Dialog dialog = new Dialog(CustomerMapActivity.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                    WindowManager.LayoutParams.MATCH_PARENT);
+            dialog.setCancelable(false);
+            dialog.setContentView(R.layout.dialog_ride_review);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+            Button mConfirm = dialog.findViewById(R.id.confirm);
+            final RatingBar mRate = dialog.findViewById(R.id.rate);
+            TextView mName = dialog.findViewById(R.id.name);;
+            ImageView mImage = dialog.findViewById(R.id.image);
+
+            mName.setText(mCurrentRide.getDriver().getName());
+
+            if(mCurrentRide.getDriver().getProfileImage() != null) {
+                if (!mCurrentRide.getDriver().getProfileImage().equals("default")) {
+                    Glide.with(CustomerMapActivity.this).load(mCurrentRide.getDriver().getProfileImage()).apply(RequestOptions.circleCropTransform()).into(mImage);
+                }
+            }
+
+            mConfirm.setOnClickListener(view -> {
+                if (mRate.getNumStars() == 0) {
+                    return;
+                }
+                mCurrentRide.updateRating(mRate.getRating());
+                dialog.dismiss();
+                mCurrentRide = new RideObject(CustomerMapActivity.this, null);
+            });
+            dialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

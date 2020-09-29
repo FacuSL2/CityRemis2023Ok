@@ -2,6 +2,7 @@ package com.creativedesign.PediTuRemis.Objects;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.graphics.drawable.ColorDrawable;
 import android.text.format.DateFormat;
 import android.view.Window;
 import android.view.WindowManager;
@@ -92,46 +93,8 @@ public class RideObject {
             Toast.makeText(activity.getApplicationContext(), "Por favor, escriba la dirección de origen", Toast.LENGTH_SHORT).show();
             return -1;
         }
-
         return 0;
     }
-
-
-
-
-    public void showDialog(Activity activity) {
-        try {
-            RideObject mTempRide = (RideObject) this.clone();
-            final Dialog dialog = new Dialog(activity);
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
-                    WindowManager.LayoutParams.MATCH_PARENT);
-            dialog.setCancelable(false);
-            dialog.setContentView(R.layout.dialog_ride_review);
-
-            Button mConfirm = dialog.findViewById(R.id.confirm);
-            RatingBar mRate = dialog.findViewById(R.id.rate);
-            TextView mName = dialog.findViewById(R.id.name);;
-            ImageView mImage = dialog.findViewById(R.id.image);
-
-            mName.setText(mTempRide.getDriver().getName());
-
-            if (!mCustomer.getProfileImage().equals("default"))
-                Glide.with(activity).load(mCustomer.getProfileImage()).apply(RequestOptions.circleCropTransform()).into(mImage);
-
-            mConfirm.setOnClickListener(view -> {
-                if (mRate.getNumStars() == 0) {
-                    return;
-                }
-                mTempRide.getRideRef().child("rating").setValue(mRate.getRating());
-                dialog.dismiss();
-            });
-            dialog.show();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-    }
-
 
 
 
@@ -195,8 +158,6 @@ public class RideObject {
         }
     }
 
-
-
     public void postRideInfo(){
         DatabaseReference driverRef = FirebaseDatabase.getInstance().getReference().child("ride_info");
 
@@ -228,6 +189,13 @@ public class RideObject {
         map.put("distance", rideDistance);
         map.put("timestamp", ServerValue.TIMESTAMP);
 
+        ref.updateChildren(map);
+    }
+
+    public void updateRating(float rating){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("ride_info").child(id);
+        HashMap map = new HashMap();
+        map.put("rating", (int) rating);
         ref.updateChildren(map);
     }
 
