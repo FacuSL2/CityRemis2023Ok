@@ -27,7 +27,10 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
     private EditText    mName,
                         mEmail,
+                        mPhone,
                         mPassword;
+
+
     private SegmentedButtonGroup mRadioGroup;
 
     private View view;
@@ -72,12 +75,17 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             mPassword.setError("please fill this field");
             return;
         }
+        if(mPhone.getText().length()==0) {
+            mPhone.setError("please fill this field");
+            return;
+        }
         if(mPassword.getText().length()< 6) {
             mPassword.setError("password must have at least 6 characters");
             return;
         }
 
         final String name = mName.getText().toString();
+        final String phone = mPhone.getText().toString();
         final String email = mEmail.getText().toString();
         final String password = mPassword.getText().toString();
         final String accountType;
@@ -85,14 +93,14 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
         switch (selectId){
             case 0:
-                accountType = "Customers";
+                accountType = "Admin";
                 break;
             case 1:
                 accountType = "Drivers";
                 break;
             case 2:
-                accountType = "Admin";
-                break;
+                accountType = "Customers";
+            break;
             default:
                 accountType = "Customers";
         }
@@ -105,6 +113,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 Map newUserMap = new HashMap();
                 newUserMap.put("name", name);
                 newUserMap.put("email", email);
+                newUserMap.put("phone", phone);
                 newUserMap.put("profileImageUrl", "default");
                 if(accountType.equals("Drivers")){
                     newUserMap.put("service", "type_1");
@@ -122,6 +131,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     private void initializeObjects(){
         mEmail = view.findViewById(R.id.email);
         mName = view.findViewById(R.id.name);
+        mPhone = view.findViewById(R.id.phone);
         mPassword = view.findViewById(R.id.password);
         Button mRegister = view.findViewById(R.id.register);
         mRadioGroup = view.findViewById(R.id.radioRealButtonGroup);

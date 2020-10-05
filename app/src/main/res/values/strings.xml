@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Ubik</string>
-
-
     <string name="phone_driver">Celular</string>
     <string name="call_uber">Solicitar</string>
     <string name="type_5">Auto</string>
