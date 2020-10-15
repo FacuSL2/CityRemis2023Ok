@@ -271,7 +271,7 @@ public class DriverMapActivity extends AppCompatActivity implements NavigationVi
                         mUser.updateChildren(newUserMap);
                     }
                     endRide();
-                    if(mDriver.getTripsAvailable() <= 0){
+                    if((mDriver.getTripsAvailable() - 1) <= 0){
                         new AlertDialog.Builder(this)
                                 .setTitle("Sin viajes disponibles")
                                 .setMessage("No tiene créditos disponibles, pongase en contacto con el administrador.")

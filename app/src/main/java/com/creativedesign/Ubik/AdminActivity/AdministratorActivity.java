@@ -157,12 +157,24 @@ public class AdministratorActivity extends AppCompatActivity implements Navigati
                         DriverObject post = postSnapshot.getValue(DriverObject.class);
                         post.setId(postSnapshot.getKey());
                         if(post.getName().toUpperCase().contains(filterDriver.toUpperCase()) && post.getActive() == isActive) {
+                            for (int i = 0; i < lstDriverObject.size(); i++) {
+                                if(lstDriverObject.get(i).getId() == post.getId()) {
+                                    lstDriverObject.remove(i);
+                                    break;
+                                }
+                            }
                             lstDriverObject.add(post);
                         }
                     } else {
                         DriverObject post = postSnapshot.getValue(DriverObject.class);
                         post.setId(postSnapshot.getKey());
                         if(post.getActive() == isActive) {
+                            for (int i = 0; i < lstDriverObject.size(); i++) {
+                                if(lstDriverObject.get(i).getId() == post.getId()) {
+                                    lstDriverObject.remove(i);
+                                    break;
+                                }
+                            }
                             lstDriverObject.add(post);
                         }
                     }

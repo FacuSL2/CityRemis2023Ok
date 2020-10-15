@@ -26,7 +26,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="5dp"
             android:cropToPadding="true"
-            android:src="@drawable/ic_logotopp2" />
+            android:src="@drawable/ic_logotopp1" />
 
     </RelativeLayout>
 

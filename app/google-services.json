@@ -8,6 +8,35 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:707273997364:android:137881cc6c9c153d9d1e61",
+        "android_client_info": {
+          "package_name": "com.creativedesign.Ubik"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "707273997364-974e9fuggilqpga7aq7l8duloq30qmnc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQK1JKsgxM_ew6fJw7aaRmiQ4k8bNfQPA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "707273997364-974e9fuggilqpga7aq7l8duloq30qmnc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:707273997364:android:4645b94eabe0b8159d1e61",
         "android_client_info": {
           "package_name": "com.creativedesign.PediTuRemis"
@@ -40,35 +69,6 @@
         "mobilesdk_app_id": "1:707273997364:android:32a57a7717a41a269d1e61",
         "android_client_info": {
           "package_name": "com.creativedesign.PediTuRemisCH"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "707273997364-974e9fuggilqpga7aq7l8duloq30qmnc.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAQK1JKsgxM_ew6fJw7aaRmiQ4k8bNfQPA"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "707273997364-974e9fuggilqpga7aq7l8duloq30qmnc.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:707273997364:android:137881cc6c9c153d9d1e61",
-        "android_client_info": {
-          "package_name": "com.creativedesign.Ubik"
         }
       },
       "oauth_client": [
