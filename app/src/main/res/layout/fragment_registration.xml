@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/backgrounduno"
+    android:background="@drawable/fondoubikk"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="40dp"
@@ -16,122 +16,150 @@
         android:orientation="vertical"
         android:src="@drawable/logotrans1"></ImageView>
 
-
-    <com.google.android.material.textfield.TextInputLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textColorHint="@color/black">
-        <EditText
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/black"
-            android:drawablePadding="5sp"
-            android:drawableLeft="@drawable/ic_person_black_24dp"
-            android:hint="@string/name"
-            android:id="@+id/name"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColorHint="@color/black">
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawablePadding="5sp"
-            android:drawableLeft="@drawable/ic_email_black_24dp"
-            android:hint="@string/email"
-            android:id="@+id/email"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_marginBottom="30sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColorHint="@color/black">
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/black"
-            android:drawablePadding="5sp"
-            android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
-            android:hint="@string/password"
-            android:id="@+id/password"
-            android:inputType="textPassword"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
-        android:id="@+id/radioRealButtonGroup"
-        android:visibility="invisible"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="4dp"
-        android:elevation="2dp"
-        android:background="@color/colorPrimaryDark"
-        app:borderColor="@color/quantum_white_100"
-        app:borderWidth="1dp"
-        app:divider="@color/quantum_white_100"
-        app:dividerPadding="10dp"
-        app:dividerWidth="1dp"
-        app:position="0"
-        app:radius="30dp"
-        app:ripple="true"
-        app:rippleColor="@color/colorAccent"
-        app:selectedBackground="@color/colorPrimaryDark">
-
-        <com.addisonelliott.segmentedbutton.SegmentedButton
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="10dp"
-            app:drawable="@drawable/ic_user_white"
-            app:drawableGravity="top"
-            app:selectedTextColor="#f3f3f3"
-            app:text="@string/customer"
-            app:textColor="@color/white" />
-
-        <com.addisonelliott.segmentedbutton.SegmentedButton
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="10dp"
-            app:drawable="@drawable/ic_suv"
-            app:drawableGravity="top"
-            app:selectedTextColor="@color/colorPrimary"
-            app:text="@string/driver"
-            app:textColor="@color/white" />
-
-        <com.addisonelliott.segmentedbutton.SegmentedButton
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="10dp"
-            app:drawable="@drawable/ic_admin"
-            app:drawableGravity="top"
-            app:selectedTextColor="@color/colorPrimary"
-            app:text="@string/admin"
-            app:textColor="@color/white" />
-
-    </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
+            android:orientation="vertical"
+            >
 
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:background="@color/verde"
-        android:text="@string/register"
-        android:id="@+id/register"
-        android:textColor="@android:color/white" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColorHint="@color/black">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/black"
+                    android:drawablePadding="5sp"
+                    android:drawableLeft="@drawable/ic_person_black_24dp"
+                    android:hint="@string/name"
+                    android:id="@+id/name"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/black">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="5sp"
+                    android:drawableLeft="@drawable/ic_email_black_24dp"
+                    android:hint="@string/email"
+                    android:id="@+id/email"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/black">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/black"
+                    android:drawablePadding="5sp"
+                    android:drawableLeft="@drawable/ic_phone_android_black_24dp"
+                    android:hint="Celular"
+                    android:id="@+id/phone"
+                    android:inputType="phone"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginBottom="30sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/black">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/black"
+                    android:drawablePadding="5sp"
+                    android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
+                    android:hint="@string/password"
+                    android:id="@+id/password"
+                    android:inputType="textPassword"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+                android:id="@+id/radioRealButtonGroup"
+                android:visibility="invisible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="4dp"
+                android:elevation="2dp"
+                android:background="@color/colorPrimaryDark"
+                app:borderColor="@color/quantum_white_100"
+                app:borderWidth="1dp"
+                app:divider="@color/quantum_white_100"
+                app:dividerPadding="10dp"
+                app:dividerWidth="1dp"
+                app:position="0"
+                app:radius="30dp"
+                app:ripple="true"
+                app:rippleColor="@color/colorAccent"
+                app:selectedBackground="@color/colorPrimaryDark">
+
+                <com.addisonelliott.segmentedbutton.SegmentedButton
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="0"
+                    android:padding="10dp"
+                    app:drawable="@drawable/ic_user_white"
+                    app:drawableGravity="top"
+                    app:selectedTextColor="#f3f3f3"
+                    app:text="@string/customer"
+                    app:textColor="@color/white" />
+
+                <com.addisonelliott.segmentedbutton.SegmentedButton
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="0"
+                    android:padding="10dp"
+                    app:drawable="@drawable/ic_suv"
+                    app:drawableGravity="top"
+                    app:selectedTextColor="@color/colorPrimary"
+                    app:text="@string/driver"
+                    app:textColor="@color/white" />
+
+                <com.addisonelliott.segmentedbutton.SegmentedButton
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="0"
+                    android:padding="10dp"
+                    app:drawable="@drawable/ic_admin"
+                    app:drawableGravity="top"
+                    app:selectedTextColor="@color/colorPrimary"
+                    app:text="@string/admin"
+                    app:textColor="@color/white" />
+
+            </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:background="@color/verde"
+                android:text="@string/register"
+                android:id="@+id/register"
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

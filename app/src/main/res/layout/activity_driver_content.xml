@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="45dp"
-        tools:context="com.creativedesign.PediTuRemis.Driver.DriverMapActivity" />
+        tools:context="com.creativedesign.Ubik.Driver.DriverMapActivity" />
 
     <RelativeLayout
         android:layout_width="match_parent"
