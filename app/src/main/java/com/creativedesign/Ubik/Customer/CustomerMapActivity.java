@@ -27,6 +27,10 @@ import com.akexorcist.googledirection.model.Direction;
 import com.akexorcist.googledirection.model.Route;
 import com.akexorcist.googledirection.util.DirectionConverter;
 import com.creativedesign.Ubik.Objects.NearObject;
+import com.creativedesign.Ubik.Reclamos;
+import com.creativedesign.Ubik.TarifasUbik;
+import com.creativedesign.Ubik.TrabajarenUbik;
+import com.creativedesign.Ubik.WebUbik;
 import com.creativedesign.Ubik.sosact;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.LatLngBounds;
@@ -1475,6 +1479,21 @@ public class CustomerMapActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.sos) {
             Intent intent = new Intent(CustomerMapActivity.this, sosact.class);
+            startActivity(intent);
+        } else if (id == R.id.tarifas) {
+            Intent intent = new Intent(CustomerMapActivity.this, TarifasUbik.class);
+            startActivity(intent);
+
+        } else if (id == R.id.webubik) {
+            Intent intent = new Intent(CustomerMapActivity.this, WebUbik.class);
+            startActivity(intent);
+
+        } else if (id == R.id.sumate) {
+            Intent intent = new Intent(CustomerMapActivity.this, TrabajarenUbik.class);
+            startActivity(intent);
+
+        } else if (id == R.id.reclamos) {
+            Intent intent = new Intent(CustomerMapActivity.this, Reclamos.class);
             startActivity(intent);
 
         } else if (id == R.id.logout) {

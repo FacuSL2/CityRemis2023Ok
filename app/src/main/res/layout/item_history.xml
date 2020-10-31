@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/time"
-            android:textColor="@color/black"
+            android:textColor="#71c7ec"
             android:textSize="15sp"
             android:text="@string/date"
             android:paddingBottom="10sp"/>
@@ -45,6 +45,7 @@
         android:id="@+id/car"
         android:textSize="15sp"
         android:text="@string/date"
+        android:textColor="#71c7ec"
         android:paddingBottom="10sp"/>
 
     <TextView
