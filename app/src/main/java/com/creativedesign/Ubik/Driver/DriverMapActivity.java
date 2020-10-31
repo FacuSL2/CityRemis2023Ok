@@ -580,7 +580,7 @@ public class DriverMapActivity extends AppCompatActivity implements NavigationVi
                     mCurrentRide= new RideObject();
                     mCurrentRide.parseData(dataSnapshot);
 
-                    if(mCurrentRide.getEnded() || mCurrentRide.getCancelled()){
+                    if(mCurrentRide.getEnded() || mCurrentRide.getCancelled() || mCurrentRide.getCancelledcl() ){
                         endRide();
                         mCurrentRide= null;
                         return;
@@ -735,6 +735,26 @@ public class DriverMapActivity extends AppCompatActivity implements NavigationVi
             }
         });
     }
+
+    private void viajecliente(){
+        if(mCurrentRide == null){return;}
+        driveHasEndedRef = FirebaseDatabase.getInstance().getReference().child("ride_info").child(mCurrentRide.getId()).child("cancelledcl");
+        driveHasEndedRefListener = driveHasEndedRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()){return;}
+                if ((boolean) dataSnapshot.getValue() == true)
+                    endRide();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+
+
 
     /**
      * End Ride by removing all of the active listeners,

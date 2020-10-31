@@ -93,13 +93,13 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
         switch (selectId){
             case 0:
-                accountType = "Admin";
+                accountType = "Customers";
                 break;
             case 1:
                 accountType = "Drivers";
                 break;
             case 2:
-                accountType = "Customers";
+                accountType = "Admin";
             break;
             default:
                 accountType = "Customers";
@@ -136,7 +136,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         Button mRegister = view.findViewById(R.id.register);
         mRadioGroup = view.findViewById(R.id.radioRealButtonGroup);
 
-        mRadioGroup.setPosition(2, false); //0-CUSTOMER   1-DRIVER     2-ADMIN
+        mRadioGroup.setPosition(1, false); //0-CUSTOMER   1-DRIVER     2-ADMIN
         mRegister.setOnClickListener(this);
     }
     @Override

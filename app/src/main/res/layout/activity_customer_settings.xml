@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.creativedesign.Ubik.Customer.CustomerSettingsActivity"
+    android:background="@drawable/fondoubikk"
     android:orientation="vertical">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/my_toolbar"
@@ -26,14 +27,14 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="280dp">
+                android:layout_height="wrap_content">
                 <LinearLayout
-                    android:background="@color/verde"
                     android:layout_width="match_parent"
-                    android:layout_height="350dp"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <ImageView
-                        android:layout_marginTop="45dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="15dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_width="150dp"
                         android:layout_height="150dp"

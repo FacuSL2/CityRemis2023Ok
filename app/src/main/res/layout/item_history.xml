@@ -47,6 +47,17 @@
         android:text="@string/date"
         android:paddingBottom="10sp"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20sp"
+        android:paddingRight="20sp"
+        android:textColor="#71c7ec"
+        android:textSize="15sp"
+        android:text="Ver Información completa"
+        android:textStyle="bold"
+        android:paddingBottom="10sp"/>
+
     <com.google.android.gms.maps.MapView
         android:clickable="false"
         android:focusable="false"
@@ -63,5 +74,7 @@
         android:id="@+id/rideId"
         android:textSize="12dp"
         android:text="rideId"/>
+
+
 
 </LinearLayout>

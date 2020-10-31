@@ -3,7 +3,9 @@ package com.creativedesign.Ubik.Customer;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -108,6 +110,7 @@ import com.creativedesign.Ubik.Objects.TypeObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -148,7 +151,7 @@ public class CustomerMapActivity extends AppCompatActivity
             autocompleteFragmentFrom;
     CardView autocompleteFragmentFromContainer;
 
-    Button mCallDriver;
+    Button mCallDriver, mCancelar;
 
     DrawerLayout drawer;
 
@@ -203,6 +206,20 @@ public class CustomerMapActivity extends AppCompatActivity
         autocompleteFragmentFromContainer = findViewById(R.id.place_from_container);
         mCurrentLocation = findViewById(R.id.current_location);
 
+        mCancelar = findViewById(R.id.cancelar);
+        mCancelar.setOnClickListener(view -> {
+            new AlertDialog.Builder(this)
+                    .setTitle("Cancelación de Viaje")
+                    .setMessage("Está seguro que desea cancelar el viaje?")
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setPositiveButton(android.R.string.yes, (DialogInterface dialog, int which) -> {
+                        mCurrentRide.cancelRidecl();
+                        endRider();
+                        viajecliente();
+                    })
+                    .setNegativeButton(android.R.string.no, null).show();
+        });
+
         mRequest = findViewById(R.id.request);
 
         mRequest.setOnClickListener(v -> {
@@ -232,9 +249,14 @@ public class CustomerMapActivity extends AppCompatActivity
 
                 getClosestDriver();
             }
+
         });
         mCallDriver.setOnClickListener(view -> {
-            if(mCurrentRide == null){
+
+            Uri uri = Uri.parse("https://api.whatsapp.com/send?phone=" + mCurrentRide.getDriver().getPhone() + "&text=Hola " +  mCurrentRide.getDriver().getName() +"soy tu pasajer@ de Ubik "); // missing 'http://' will cause crashed
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+            /*if(mCurrentRide == null){
                 Snackbar.make(findViewById(R.id.drawer_layout),getString(R.string.driver_no_phone), Snackbar.LENGTH_LONG).show();
             }
             if(ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED){
@@ -242,7 +264,7 @@ public class CustomerMapActivity extends AppCompatActivity
                 startActivity(intent);
             }else{
                 Snackbar.make(findViewById(R.id.drawer_layout),getString(R.string.no_phone_call_permissions), Snackbar.LENGTH_LONG).show();
-            }
+            }*/
         });
 
         ImageView mDrawerButton = findViewById(R.id.drawerButton);
@@ -503,7 +525,7 @@ public class CustomerMapActivity extends AppCompatActivity
 
                                 getDriverLocation();
                                 getDriverInfo();
-                                getHasRideEnded();
+                               getHasRideEnded();
                                 mRequest.setText(R.string.looking_driver);
                             }
                         }
@@ -814,11 +836,19 @@ public class CustomerMapActivity extends AppCompatActivity
                 if(Boolean.parseBoolean(dataSnapshot.child("cancelled").getValue().toString())){
                     new AlertDialog.Builder(CustomerMapActivity.this)
                             .setTitle("Cancelación de Viaje")
-                            .setMessage("El conductor se encuentra indisponible en este momento, " +
+                            .setMessage("El conductor no se encuentra disponible en este momento, " +
                                     "le recomendamos realizar otra solicitud nuevamente para buscar otro conductor.")
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .setPositiveButton(android.R.string.yes, null).show();
                 }
+                 /*if(Boolean.parseBoolean(dataSnapshot.child("cancelledcl").getValue().toString())){
+                    new AlertDialog.Builder(CustomerMapActivity.this)
+                            .setTitle("Cancelación de Viaje")
+                            .setMessage("Usted a cancelado el viaje correctamente, " +
+                                    "Solicitamos no realizar esta tarea repetidamente o podrá ser sancionado.")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setPositiveButton(android.R.string.yes, null).show();
+                }*/
                 endRide();
             }
 
@@ -827,6 +857,34 @@ public class CustomerMapActivity extends AppCompatActivity
             }
         });
     }
+
+   private void viajecliente(){
+        if(mCurrentRide == null){return;}
+        driveHasEndedRef = FirebaseDatabase.getInstance().getReference().child("ride_info").child(mCurrentRide.getId());
+        driveHasEndedRefListener = driveHasEndedRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()){return;}
+                if(!Boolean.parseBoolean(dataSnapshot.child("ended").getValue().toString())){return;}
+
+                if(Boolean.parseBoolean(dataSnapshot.child("cancelledcl").getValue().toString())){
+                    new AlertDialog.Builder(CustomerMapActivity.this)
+                            .setTitle("Cancelación de Viaje")
+                            .setMessage("Usted a cancelado el viaje correctamente, " +
+                                    "Solicitamos no realizar esta tarea repetidamente o podrá ser sancionado.")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setPositiveButton(android.R.string.yes, null).show();
+                }
+                endRider();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+
 
     /**
      * End Ride by removing all of the active listeners,
@@ -845,6 +903,11 @@ public class CustomerMapActivity extends AppCompatActivity
             driverLocationRef.removeEventListener(driverLocationRefListener);
         if (driveHasEndedRefListener != null)
             driveHasEndedRef.removeEventListener(driveHasEndedRefListener);
+
+
+
+
+
 
         if (mCurrentRide != null && driverFound){
             DatabaseReference driverRef = FirebaseDatabase.getInstance().getReference().child("Users").child("Drivers").child(mCurrentRide.getDriver().getId()).child("customerRequest");
@@ -888,6 +951,66 @@ public class CustomerMapActivity extends AppCompatActivity
         autocompleteFragmentFrom.setText(getString(R.string.from));
         mCurrentLocation.setImageDrawable(getResources().getDrawable(R.drawable.ic_location_on_grey_24dp));
     }
+
+
+
+    private void endRider(){
+
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        requestBol = false;
+        if(geoQuery != null)
+            geoQuery.removeAllListeners();
+        if (driverLocationRefListener != null)
+            driverLocationRef.removeEventListener(driverLocationRefListener);
+        if (driveHasEndedRefListener != null)
+            driveHasEndedRef.removeEventListener(driveHasEndedRefListener);
+
+
+
+
+        if (mCurrentRide != null && driverFound){
+            DatabaseReference driverRef = FirebaseDatabase.getInstance().getReference().child("Users").child("Drivers").child(mCurrentRide.getDriver().getId()).child("customerRequest");
+            driverRef.removeValue();
+        }
+
+        pickupLocation = null;
+        destinationLocation = null;
+
+        driverFound = false;
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("customerRequest");
+        GeoFire geoFire = new GeoFire(ref);
+        geoFire.removeLocation(userId, (key, error) -> {});
+
+        if(destinationMarker != null){
+            destinationMarker.remove();
+        }
+        if(pickupMarker != null){
+            pickupMarker.remove();
+        }
+        if (mDriverMarker != null){
+            mDriverMarker.remove();
+        }
+        mMap.clear();
+        mRequest.setText(getString(R.string.call_uber));
+        mRequest.setEnabled(true);
+
+        mDriverInfo.setVisibility(View.GONE);
+        mRadioLayout.setVisibility(View.VISIBLE);
+
+        mDriverName.setText("");
+        mDriverCar.setText(getString(R.string.destination));
+        mDriverProfileImage.setImageResource(R.mipmap.ic_default_user);
+
+        autocompleteFragmentTo.setVisibility(View.VISIBLE);
+        autocompleteFragmentFromContainer.setVisibility(View.VISIBLE);
+
+        autocompleteFragmentTo.setText(getString(R.string.to));
+        autocompleteFragmentFrom.setText(getString(R.string.from));
+        mCurrentLocation.setImageDrawable(getResources().getDrawable(R.drawable.ic_location_on_grey_24dp));
+    }
+
 
     public void showingDialog() {
         try {

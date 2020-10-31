@@ -44,7 +44,7 @@ public class RideObject {
 
     Activity activity;
 
-    Boolean ended = false, customerPaid = false, driverPaid = false, cancelled = false;
+    Boolean ended = false, customerPaid = false, driverPaid = false, cancelled = false, cancelledcl = false;
 
     private float rideDistance = 0;
     private Double ridePrice = 0.0;
@@ -126,6 +126,10 @@ public class RideObject {
             cancelled = Boolean.parseBoolean(dataSnapshot.child("cancelled").getValue().toString());
         }
 
+        if(dataSnapshot.child("cancelledcl").getValue() != null){
+            cancelledcl = Boolean.parseBoolean(dataSnapshot.child("cancelledcl").getValue().toString());
+        }
+
 
         if(dataSnapshot.child("timestamp").getValue() != null){
             timestamp = Long.valueOf(dataSnapshot.child("timestamp").getValue().toString());
@@ -157,6 +161,7 @@ public class RideObject {
         map.put("customerId", customerId);
         map.put("car", mDriver.getCar());
         map.put("cancelled", false);
+        map.put("cancelledcl", false);
         map.put("driverId", mDriver.getId());
         map.put("ended", false);
         map.put("destination/name", destination.getName());
@@ -200,6 +205,14 @@ public class RideObject {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("ride_info").child(id);
         HashMap map = new HashMap();
         map.put("cancelled", true);
+        map.put("ended", true);
+        ref.updateChildren(map);
+    }
+
+    public void cancelRidecl(){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("ride_info").child(id);
+        HashMap map = new HashMap();
+        map.put("cancelledcl", true);
         map.put("ended", true);
         ref.updateChildren(map);
     }
@@ -299,5 +312,9 @@ public class RideObject {
 
     public Boolean getCancelled() {
         return cancelled;
+    }
+
+    public Boolean getCancelledcl() {
+        return cancelledcl;
     }
 }

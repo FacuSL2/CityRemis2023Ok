@@ -13,10 +13,17 @@
             android:id="@+id/settings"
             android:title="@string/settings"
             android:icon="@drawable/ic_person_black_24dp"
-            android:tooltipText="Modificar ajustes de cuenta"/>
+            android:tooltipText="Modificar ajustes de cuenta"
+            />
         <item
             android:id="@+id/sos"
             android:title="S.O.S"
+            android:icon="@drawable/ic_error_black_24dp"
+            />
+
+        <item
+            android:id="@+id/webubik"
+            android:title="www.ubikrosario.com"
             android:icon="@drawable/ic_error_black_24dp"
             />
 

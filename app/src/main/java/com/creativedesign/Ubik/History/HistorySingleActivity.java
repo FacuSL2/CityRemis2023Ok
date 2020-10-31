@@ -302,8 +302,8 @@ public class HistorySingleActivity extends AppCompatActivity implements OnMapRea
                     .transportMode(TransportMode.DRIVING)
                     .execute(this);
 
-            mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_finish)).position(mRide.getDestination().getCoordinates()).title("destination"));
-            mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_start)).position(mRide.getPickup().getCoordinates()).title("pickup"));
+            mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_finish)).position(mRide.getDestination().getCoordinates()).title("destino"));
+            mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_start)).position(mRide.getPickup().getCoordinates()).title("origen"));
         }
     }
 
@@ -340,7 +340,7 @@ public class HistorySingleActivity extends AppCompatActivity implements OnMapRea
             Route route = direction.getRouteList().get(0);
 
             ArrayList<LatLng> directionPositionList = route.getLegList().get(0).getDirectionPoint();
-            Polyline polyline = mMap.addPolyline(DirectionConverter.createPolyline(this, directionPositionList, 5, Color.BLACK));
+            Polyline polyline = mMap.addPolyline(DirectionConverter.createPolyline(this, directionPositionList, 5, Color.BLUE));
             polylines.add(polyline);
             setCameraWithCoordinationBounds(route);
 

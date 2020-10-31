@@ -168,14 +168,24 @@
                                     android:padding="20sp"/>
                                 <Button
                                     android:layout_gravity="center"
-                                    android:drawableStart="@drawable/ic_phone"
+                                    android:drawableStart="@drawable/wpp"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:backgroundTint="@color/colorAccent"
                                     android:textColor="@android:color/white"
-                                    android:text="@string/phone_driver"
+                                    android:text="Whatsapp"
                                     android:id="@+id/phone" />
-                            </LinearLayout>
+
+                                    <Button
+                                        android:id="@+id/cancelar"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:backgroundTint="@color/verde"
+                                        android:padding="20dp"
+                                        android:text="@string/cancel_ride"
+                                        android:textColor="@android:color/white" />
+
+                                </LinearLayout>
 
                             <LinearLayout
                                 android:padding="15sp"
@@ -220,7 +230,8 @@
 
                     <androidx.core.widget.NestedScrollView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        >
                         <androidx.recyclerview.widget.RecyclerView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
