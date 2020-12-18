@@ -33,6 +33,13 @@
             android:icon="@drawable/ic_error_black_24dp"
             />
 
+
+        <item
+            android:id="@+id/share"
+            android:title="Compartir"
+            android:icon="@drawable/ic_share_black_24dp"
+            />
+
         <item
             android:id="@+id/sumate"
             android:title="Trabajar en Ubik"

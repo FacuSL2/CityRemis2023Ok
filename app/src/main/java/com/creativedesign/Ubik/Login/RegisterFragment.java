@@ -64,23 +64,23 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
      */
     private void register(){
         if(mName.getText().length()==0) {
-            mName.setError("please fill this field");
+            mName.setError("por favor complete este campo");
             return;
         }
         if(mEmail.getText().length()==0) {
-            mEmail.setError("please fill this field");
+            mEmail.setError("por favor complete este campo");
             return;
         }
         if(mPassword.getText().length()==0) {
-            mPassword.setError("please fill this field");
+            mPassword.setError("por favor complete este campo");
             return;
         }
         if(mPhone.getText().length()==0) {
-            mPhone.setError("please fill this field");
+            mPhone.setError("por favor complete este campo");
             return;
         }
         if(mPassword.getText().length()< 6) {
-            mPassword.setError("password must have at least 6 characters");
+            mPassword.setError("la contraseña debe tener al menos 6 caracteres");
             return;
         }
 
@@ -93,10 +93,10 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
         switch (selectId){
             case 0:
-                accountType = "Customers";
+                accountType = "Drivers";
                 break;
             case 1:
-                accountType = "Drivers";
+                accountType = "Customers";
                 break;
             case 2:
                 accountType = "Admin";
@@ -107,7 +107,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener(getActivity(), task -> {
             if(!task.isSuccessful()){
-                Snackbar.make(view.findViewById(R.id.layout), "sign up error", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(view.findViewById(R.id.layout), "error en el registro", Snackbar.LENGTH_SHORT).show();
             }else{
                 String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 Map newUserMap = new HashMap();

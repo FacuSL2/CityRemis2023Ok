@@ -28,6 +28,7 @@ import com.akexorcist.googledirection.model.Route;
 import com.akexorcist.googledirection.util.DirectionConverter;
 import com.creativedesign.Ubik.Objects.NearObject;
 import com.creativedesign.Ubik.Reclamos;
+import com.creativedesign.Ubik.Share;
 import com.creativedesign.Ubik.TarifasUbik;
 import com.creativedesign.Ubik.TrabajarenUbik;
 import com.creativedesign.Ubik.WebUbik;
@@ -46,6 +47,7 @@ import androidx.core.content.ContextCompat;
 
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
@@ -125,7 +127,7 @@ import java.util.Map;
 public class CustomerMapActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, DirectionCallback {
 
-    int MAX_SEARCH_DISTANCE = 10;
+    int MAX_SEARCH_DISTANCE = 4;
 
     private GoogleMap mMap;
 
@@ -145,6 +147,10 @@ public class CustomerMapActivity extends AppCompatActivity
 
     private LinearLayout mDriverInfo,
             mRadioLayout;
+
+    int esperandoVehiculo = 0;
+    static final int TIME_OUT = 25000;
+    static final int MSG_DISMISS_DIALOG = 0;
 
     private ImageView mDriverProfileImage, mCurrentLocation;
 
@@ -168,6 +174,8 @@ public class CustomerMapActivity extends AppCompatActivity
     private RecyclerView.LayoutManager mLayoutManager;
 
     ArrayList<TypeObject> typeArrayList = new ArrayList<>();
+    private boolean activar = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -257,7 +265,7 @@ public class CustomerMapActivity extends AppCompatActivity
         });
         mCallDriver.setOnClickListener(view -> {
 
-            Uri uri = Uri.parse("https://api.whatsapp.com/send?phone=" + mCurrentRide.getDriver().getPhone() + "&text=Hola " +  mCurrentRide.getDriver().getName() +"soy tu pasajer@ de Ubik "); // missing 'http://' will cause crashed
+            Uri uri = Uri.parse("https://api.whatsapp.com/send?phone=" + mCurrentRide.getDriver().getPhone() + "&text=Hola " +  mCurrentRide.getDriver().getName() +" soy tu pasajer@ de Ubik "); // missing 'http://' will cause crashed
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(intent);
             /*if(mCurrentRide == null){
@@ -313,7 +321,7 @@ public class CustomerMapActivity extends AppCompatActivity
                 autocompleteFragmentFrom.setText(getString(R.string.from));
                 mCurrentLocation.setImageDrawable(getResources().getDrawable(R.drawable.ic_location_on_grey_24dp));
                 if(destinationLocation != null){
-                    destinationMarker = mMap.addMarker(new MarkerOptions().position(destinationLocation.getCoordinates()).title("Destination").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_radio_filled)));
+                    destinationMarker = mMap.addMarker(new MarkerOptions().position(destinationLocation.getCoordinates()).title("Destino").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_radio_filled)));
                     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                 }
                 erasePolylines();
@@ -329,6 +337,40 @@ public class CustomerMapActivity extends AppCompatActivity
         });
 
         initRecyclerView();
+    }
+
+
+    /**
+     * Al presionar tecla ATRAS, se solicitará un dialogo para confirmar
+     */
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode==event.KEYCODE_BACK) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("¿Desea Salir de Ubik?")
+                    .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(Intent.ACTION_MAIN);
+                            intent.addCategory(Intent.CATEGORY_HOME);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }
+                    })
+
+                    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            builder.show();
+
+        }
+        return super.onKeyDown(keyCode, event);
+
+
     }
 
     /**
@@ -409,10 +451,12 @@ public class CustomerMapActivity extends AppCompatActivity
             Intent intent = new Autocomplete.IntentBuilder(
                     AutocompleteActivityMode.OVERLAY, Arrays.asList(Place.Field.ID, Place.Field.ADDRESS, Place.Field.NAME, Place.Field.LAT_LNG))
                     .setLocationRestriction(RectangularBounds.newInstance(
-                              new LatLng(-33.0653075,-60.7960767),
-                              new LatLng(-32.8266165,-60.6494757))
+                            new LatLng(-33.080826,-60.797730),
+                            new LatLng(-32.793840,-60.524446))
 
-                                   //rosario -32.837684, -60.840373
+
+                            // -33.080826, -60.797730
+                            //-32.793840, -60.524446
 
                             //  new LatLng(-27.544747,-58.880979),
                             //  new LatLng(-27.4568393,-58.7662969))
@@ -428,8 +472,8 @@ public class CustomerMapActivity extends AppCompatActivity
             Intent intent = new Autocomplete.IntentBuilder(
                     AutocompleteActivityMode.OVERLAY, Arrays.asList(Place.Field.ID, Place.Field.ADDRESS, Place.Field.NAME, Place.Field.LAT_LNG))
                     .setLocationRestriction(RectangularBounds.newInstance(
-                            new LatLng(-33.0653075,-60.7960767),
-                            new LatLng(-32.8266165,-60.6494757))
+                            new LatLng(-33.080826,-60.797730),
+                            new LatLng(-32.793840,-60.524446))
                     )
                     .setTypeFilter(TypeFilter.ADDRESS)
                     .build(getApplicationContext());
@@ -494,7 +538,17 @@ public class CustomerMapActivity extends AppCompatActivity
                     requestBol = false;
                     mRequest.setText(R.string.call_uber);
                     mRequest.setEnabled(true);
-                    Snackbar.make(findViewById(R.id.drawer_layout), R.string.no_driver_near_you, Snackbar.LENGTH_LONG).show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(CustomerMapActivity.this);
+                    builder.setMessage("No se ha encontrado un conductor cerca de usted. Aguarde un momento y relice un nuevo pedido por favor.")
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    builder.show();
+
+                    //Snackbar.make(findViewById(R.id.drawer_layout), R.string.no_driver_near_you, Snackbar.LENGTH_LONG).show();
                     geoQuery.removeAllListeners();
                     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                     return;
@@ -529,7 +583,9 @@ public class CustomerMapActivity extends AppCompatActivity
 
                                 getDriverLocation();
                                 getDriverInfo();
-                               getHasRideEnded();
+                                getHasRideEnded();
+                                esperandoVehiculo = 1;
+                                mHandler.sendEmptyMessageDelayed(MSG_DISMISS_DIALOG, TIME_OUT);
                                 mRequest.setText(R.string.looking_driver);
                             }
                         }
@@ -539,6 +595,7 @@ public class CustomerMapActivity extends AppCompatActivity
                     }
                 });
             }
+
 
             @Override
             public void onKeyExited(String key) {
@@ -557,6 +614,22 @@ public class CustomerMapActivity extends AppCompatActivity
             }
         });
     }
+
+    private Handler mHandler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            switch (msg.what) {
+                case MSG_DISMISS_DIALOG:
+                    if (esperandoVehiculo == 1) {
+                        mCurrentRide.cancelRide();
+                        endRide();
+                        esperandoVehiculo = 0;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
     /**
      * Get Closest Rider by getting all the drivers available
@@ -593,7 +666,16 @@ public class CustomerMapActivity extends AppCompatActivity
                     requestBol = false;
                     mRequest.setText(R.string.call_uber);
                     mRequest.setEnabled(true);
-                    Snackbar.make(findViewById(R.id.drawer_layout), R.string.no_driver_near_you, Snackbar.LENGTH_LONG).show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(CustomerMapActivity.this);
+                    builder.setMessage("No se ha encontrado un conductor cerca de usted. Aguarde un momento y relice un nuevo pedido por favor.")
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    builder.show();
+                    //Snackbar.make(findViewById(R.id.drawer_layout), R.string.no_driver_near_you, Snackbar.LENGTH_LONG).show();
                     geoQuery.removeAllListeners();
                     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                     return;
@@ -618,6 +700,7 @@ public class CustomerMapActivity extends AppCompatActivity
                                             getDriverLocation();
                                             getDriverInfo();
                                             getHasRideEnded();
+
                                             mRequest.setText(R.string.looking_driver);
                                         }
                                     } else {
@@ -628,7 +711,16 @@ public class CustomerMapActivity extends AppCompatActivity
                                             requestBol = false;
                                             mRequest.setText(R.string.call_uber);
                                             mRequest.setEnabled(true);
-                                            Snackbar.make(findViewById(R.id.drawer_layout), R.string.no_driver_near_you, Snackbar.LENGTH_LONG).show();
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(CustomerMapActivity.this);
+                                            builder.setMessage("No se ha encontrado un conductor cerca de usted. Aguarde un momento y relice un nuevo pedido por favor.")
+                                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            dialog.dismiss();
+                                                        }
+                                                    });
+                                            builder.show();
+                                            //Snackbar.make(findViewById(R.id.drawer_layout), R.string.no_driver_near_you, Snackbar.LENGTH_LONG).show();
                                             geoQuery.removeAllListeners();
                                             mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                                         }
@@ -688,7 +780,16 @@ public class CustomerMapActivity extends AppCompatActivity
                     requestBol = false;
                     mRequest.setText(R.string.call_uber);
                     mRequest.setEnabled(true);
-                    Snackbar.make(findViewById(R.id.drawer_layout), R.string.no_driver_near_you, Snackbar.LENGTH_LONG).show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(CustomerMapActivity.this);
+                    builder.setMessage("No se ha encontrado un conductor cerca de usted. Aguarde un momento y relice un nuevo pedido por favor.")
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    builder.show();
+                    //Snackbar.make(findViewById(R.id.drawer_layout), R.string.no_driver_near_you, Snackbar.LENGTH_LONG).show();
                     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                     return;
                 } else {
@@ -763,17 +864,39 @@ public class CustomerMapActivity extends AppCompatActivity
 
                     float distance = loc1.distanceTo(loc2);
 
+                    esperandoVehiculo = 0;
                     if (distance<100){
                         mRequest.setText(R.string.driver_here);
+
                         mRequest.setEnabled(false);
                     }else{
                         mRequest.setText(getString(R.string.driver_found));
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(CustomerMapActivity.this);
+                        builder.setMessage("Su vehículo llegará en los proximos 5/10 minutos, puede visualizar la posición del conductor en el mapa.")
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+
+                                });
+                        builder.create();
+                        builder.show();
+                        activar = false;
+
+                        builder.show();
+
+
+
                         mRequest.setEnabled(false);
                     }
 
                     mCurrentRide.getDriver().setLocation(mDriverLocation);
 
-                    mDriverMarker = mMap.addMarker(new MarkerOptions().position(mCurrentRide.getDriver().getLocation().getCoordinates()).title("Su Vehículo").icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_car)));
+                    markerList.remove(mDriverMarker);
+
+                    mDriverMarker = mMap.addMarker(new MarkerOptions().position(mCurrentRide.getDriver().getLocation().getCoordinates()).title("Su Vehículo").icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_carr)));
                 }
 
             }
@@ -862,7 +985,7 @@ public class CustomerMapActivity extends AppCompatActivity
         });
     }
 
-   private void viajecliente(){
+    private void viajecliente(){
         if(mCurrentRide == null){return;}
         driveHasEndedRef = FirebaseDatabase.getInstance().getReference().child("ride_info").child(mCurrentRide.getId());
         driveHasEndedRefListener = driveHasEndedRef.addValueEventListener(new ValueEventListener() {
@@ -1308,13 +1431,12 @@ public class CustomerMapActivity extends AppCompatActivity
         String serverKey = getResources().getString(R.string.google_maps_key);
         if (mCurrentRide.getDestination() != null && mCurrentRide.getPickup() != null){
             GoogleDirection.withServerKey(serverKey)
-                    .from(mCurrentRide.getDestination().getCoordinates())
-                    .to(mCurrentRide.getPickup().getCoordinates())
+                    .from(mCurrentRide.getPickup().getCoordinates())
+                    .to(mCurrentRide.getDestination().getCoordinates())
                     .transportMode(TransportMode.DRIVING)
                     .execute(this);
         }
     }
-
     private List<Polyline> polylines  = new ArrayList<>();
 
     /**
@@ -1379,7 +1501,18 @@ public class CustomerMapActivity extends AppCompatActivity
             LocationObject mLocation;
 
             if (currentLocation == null) {
-                Snackbar.make(findViewById(R.id.drawer_layout), "First Activate GPS", Snackbar.LENGTH_LONG).show();
+                // Snackbar.make(findViewById(R.id.drawer_layout), "Por favor active el gps o localización en su celular", Snackbar.LENGTH_LONG).show();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Por favor active el gps o localización en su celular")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                builder.show();
+
                 return;
             }
             Place place = Autocomplete.getPlaceFromIntent(data);
@@ -1393,21 +1526,21 @@ public class CustomerMapActivity extends AppCompatActivity
             if (requestCode == 1) {
                 mMap.clear();
                 destinationLocation = mLocation;
-                destinationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_radio_filled)).position(destinationLocation.getCoordinates()).title("Destination"));
+                destinationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_radio_filled)).position(destinationLocation.getCoordinates()).title("Destino"));
                 mCurrentRide.setDestination(destinationLocation);
                 autocompleteFragmentTo.setText(destinationLocation.getName());
                 if(pickupLocation != null){
-                    pickupMarker = mMap.addMarker(new MarkerOptions().position(pickupLocation.getCoordinates()).title("Pickup").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_radios)));
+                    pickupMarker = mMap.addMarker(new MarkerOptions().position(pickupLocation.getCoordinates()).title("Origen").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_radios)));
                     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                 }
             }else if(requestCode == 2){
                 mMap.clear();
                 pickupLocation = mLocation;
-                pickupMarker = mMap.addMarker(new MarkerOptions().position(pickupLocation.getCoordinates()).title("Pickup").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_radios)));
+                pickupMarker = mMap.addMarker(new MarkerOptions().position(pickupLocation.getCoordinates()).title("Origen").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_radios)));
                 mCurrentRide.setPickup(pickupLocation);
                 autocompleteFragmentFrom.setText(pickupLocation.getName());
                 if(destinationLocation != null){
-                    destinationMarker = mMap.addMarker(new MarkerOptions().position(destinationLocation.getCoordinates()).title("Destination").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_radio_filled)));
+                    destinationMarker = mMap.addMarker(new MarkerOptions().position(destinationLocation.getCoordinates()).title("Destino").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_radio_filled)));
                     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                 }
             }
@@ -1479,6 +1612,9 @@ public class CustomerMapActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.sos) {
             Intent intent = new Intent(CustomerMapActivity.this, sosact.class);
+            startActivity(intent);
+        } else if (id == R.id.share) {
+            Intent intent = new Intent(CustomerMapActivity.this, Share.class);
             startActivity(intent);
         } else if (id == R.id.tarifas) {
             Intent intent = new Intent(CustomerMapActivity.this, TarifasUbik.class);

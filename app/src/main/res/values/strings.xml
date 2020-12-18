@@ -34,10 +34,10 @@
     <string name="customer">Pasajero</string>
     <string name="driver">Conductor</string>
     <string name="admin">Administrador</string>
-    <string name="getting_driver">Buscando Vehículo....</string>
-    <string name="looking_driver">Buscando Vehículo…</string>
+    <string name="getting_driver">Aguardando confirmacion</string>
+    <string name="looking_driver">Buscando Vehículo</string>
     <string name="driver_here">Su vehículo ha llegado</string>
-    <string name="driver_found">Vehículo Encontrado</string>
+    <string name="driver_found">Su vehículo llegará en los proximos 5/10 minutos.</string>
     <string name="drive_complete">Viaje Completado</string>
     <string name="not_approved">Su cuenta no está aprobada</string>
     <string name="no_driver_near_you">No se ha encontrado ningún conductor cerca de usted.</string>
