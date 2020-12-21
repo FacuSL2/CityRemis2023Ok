@@ -18,11 +18,11 @@ public class ConsumptionWS {
             con.setDoInput(true);
 
             con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-            con.setRequestProperty("Authorization", "Basic M2VhNTM5MDAtMTBjOS00MWMzLTkyYTgtNDAyZDg5MWY1YmU2");
+            con.setRequestProperty("Authorization", "Basic NzYxNTk2MzktNTlkZS00NDY3LWI4ZWEtNzM2NWZkM2I2MmEz");
             con.setRequestMethod("POST");
 
             String strJsonBody = "{"
-                    +   "\"app_id\": \"3045ae19-396a-4846-a792-181d9d331191\","
+                    +   "\"app_id\": \"bd0ee78e-3364-4738-bd50-77df708a945f\","
                     +   "\"headings\": {\"es\": \"UBIK\", \"en\": \"UBIK\"},"
                     +   "\"filters\" : [{\"field\": \"tag\", \"key\": \"email\", \"relation\": \"=\", \"value\": \"" + email + "\"}],"
                     +   "\"contents\": {\"en\": \"El vehículo " + nombreChofer +" lo esta esperando para iniciar el viaje.\", \"es\": \"El vehículo " + nombreChofer + " lo esta esperando para iniciar el viaje.\"}"

@@ -61,6 +61,7 @@
                 android:id="@+id/rate"
                 android:numStars="5"
                 android:stepSize="1"
+                android:rating="5"
                 android:visibility="visible"/>
 
         </androidx.cardview.widget.CardView>

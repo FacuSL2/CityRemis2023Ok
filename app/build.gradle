@@ -15,7 +15,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion '29.0.0'
+    buildToolsVersion '29.0.3'
     defaultConfig {
         applicationId "com.creativedesign.Ubik"
         minSdkVersion 21
@@ -27,7 +27,7 @@ android {
         multiDexEnabled true
         useLibrary 'org.apache.http.legacy'
         manifestPlaceholders = [
-                onesignal_app_id               : '3045ae19-396a-4846-a792-181d9d331191',
+                onesignal_app_id: 'bd0ee78e-3364-4738-bd50-77df708a945f',
                 // Project number pulled from dashboard, local value is ignored.
                 onesignal_google_project_number: 'REMOTE'
         ]

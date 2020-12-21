@@ -378,7 +378,7 @@ public class CustomerMapActivity extends AppCompatActivity
      * available car types
      */
     private void initRecyclerView(){
-        typeArrayList.add(new TypeObject("type_1", getResources().getString(R.string.type_1), getResources().getDrawable(R.drawable.logoubikk), 4));
+        typeArrayList.add(new TypeObject("type_1", getResources().getString(R.string.type_1), getResources().getDrawable(R.drawable.wpp), 4));
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setHasFixedSize(true);
@@ -690,6 +690,23 @@ public class CustomerMapActivity extends AppCompatActivity
                                     if(driverMap.get("service").equals(mAdapter.getSelectedItem().getId())){
                                         if(destinationLocation != null) {
                                             driverFound = true;
+
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(CustomerMapActivity.this);
+                                            builder.setMessage("Su vehículo llegará en los proximos 5/10 minutos, puede visualizar la posición del conductor en el mapa.")
+                                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            dialog.dismiss();
+                                                        }
+
+                                                    });
+                                            builder.create();
+                                            builder.show();
+
+                                            activar = false;
+
+                                            builder.show();
+
                                             mCurrentRide.setDriver(new DriverObject(dataSnapshot.getKey()));
                                             mCurrentRide.setDestination(destinationLocation);
 
@@ -864,6 +881,7 @@ public class CustomerMapActivity extends AppCompatActivity
 
                     float distance = loc1.distanceTo(loc2);
 
+
                     esperandoVehiculo = 0;
                     if (distance<100){
                         mRequest.setText(R.string.driver_here);
@@ -871,23 +889,6 @@ public class CustomerMapActivity extends AppCompatActivity
                         mRequest.setEnabled(false);
                     }else{
                         mRequest.setText(getString(R.string.driver_found));
-
-                        AlertDialog.Builder builder = new AlertDialog.Builder(CustomerMapActivity.this);
-                        builder.setMessage("Su vehículo llegará en los proximos 5/10 minutos, puede visualizar la posición del conductor en el mapa.")
-                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-
-                                });
-                        builder.create();
-                        builder.show();
-                        activar = false;
-
-                        builder.show();
-
-
 
                         mRequest.setEnabled(false);
                     }

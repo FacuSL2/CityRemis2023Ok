@@ -15,35 +15,35 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
-        android:name=".ApplicationClass"
+        android:name="com.creativedesign.Ubik.ApplicationClass"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".Share"></activity>
-        <activity android:name=".Reclamos" />
-        <activity android:name=".TrabajarenUbik" />
-        <activity android:name=".WebUbik" />
-        <activity android:name=".TarifasUbik" />
-        <activity android:name=".AdminActivity.AdministratorSettingsActivity" />
-        <activity android:name=".AdminActivity.AdministratorActivity" />
-        <activity android:name=".sosact" />
-        <activity android:name=".Login.LauncherActivity">
+        <activity android:name="com.creativedesign.Ubik.Share"></activity>
+        <activity android:name="com.creativedesign.Ubik.Reclamos" />
+        <activity android:name="com.creativedesign.Ubik.TrabajarenUbik" />
+        <activity android:name="com.creativedesign.Ubik.WebUbik" />
+        <activity android:name="com.creativedesign.Ubik.TarifasUbik" />
+        <activity android:name="com.creativedesign.Ubik.AdminActivity.AdministratorSettingsActivity" />
+        <activity android:name="com.creativedesign.Ubik.AdminActivity.AdministratorActivity" />
+        <activity android:name="com.creativedesign.Ubik.sosact" />
+        <activity android:name="com.creativedesign.Ubik.Login.LauncherActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Login.AuthenticationActivity" />
-        <activity android:name=".Customer.CustomerMapActivity" />
-        <activity android:name=".Customer.CustomerSettingsActivity" />
-        <activity android:name=".Driver.DriverSettingsActivity" />
-        <activity android:name=".History.HistoryActivity" />
-        <activity android:name=".History.HistorySingleActivity" />
+        <activity android:name="com.creativedesign.Ubik.Login.AuthenticationActivity" />
+        <activity android:name="com.creativedesign.Ubik.Customer.CustomerMapActivity" />
+        <activity android:name="com.creativedesign.Ubik.Customer.CustomerSettingsActivity" />
+        <activity android:name="com.creativedesign.Ubik.Driver.DriverSettingsActivity" />
+        <activity android:name="com.creativedesign.Ubik.History.HistoryActivity" />
+        <activity android:name="com.creativedesign.Ubik.History.HistorySingleActivity" />
         <activity
-            android:name=".Driver.DriverMapActivity"
+            android:name="com.creativedesign.Ubik.Driver.DriverMapActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
