@@ -705,8 +705,6 @@ public class CustomerMapActivity extends AppCompatActivity
 
                                             activar = false;
 
-                                            builder.show();
-
                                             mCurrentRide.setDriver(new DriverObject(dataSnapshot.getKey()));
                                             mCurrentRide.setDestination(destinationLocation);
 
@@ -717,6 +715,7 @@ public class CustomerMapActivity extends AppCompatActivity
                                             getDriverLocation();
                                             getDriverInfo();
                                             getHasRideEnded();
+
 
                                             mRequest.setText(R.string.looking_driver);
                                         }
