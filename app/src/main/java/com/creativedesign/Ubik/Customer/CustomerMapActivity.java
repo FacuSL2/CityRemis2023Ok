@@ -251,7 +251,6 @@ public class CustomerMapActivity extends AppCompatActivity
                 }
                 mCurrentRide.postRide();
 
-
                 requestBol = true;
 
                 mRequest.setText(R.string.getting_driver);
@@ -418,7 +417,7 @@ public class CustomerMapActivity extends AppCompatActivity
                     else{
                         mDriverInfo.setVisibility(View.VISIBLE);
                         mRadioLayout.setVisibility(View.GONE);
-                        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                         previousRequestBol = requestBol;
                     }
                 }
@@ -575,18 +574,21 @@ public class CustomerMapActivity extends AppCompatActivity
 
                             if(driverMap.get("service").equals(mAdapter.getSelectedItem().getId())){
                                 driverFound = true;
+
                                 mCurrentRide.setDriver(new DriverObject(dataSnapshot.getKey()));
 
                                 mCurrentRide.postRideInfo();
 
+
                                 mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
                                 getDriverLocation();
-                                getDriverInfo();
+                                //SE REMOVIÓ PARA NO MOSTRAR DATOS getDriverInfo();
                                 getHasRideEnded();
                                 esperandoVehiculo = 1;
                                 mHandler.sendEmptyMessageDelayed(MSG_DISMISS_DIALOG, TIME_OUT);
                                 mRequest.setText(R.string.looking_driver);
+
                             }
                         }
                     }
@@ -677,7 +679,7 @@ public class CustomerMapActivity extends AppCompatActivity
                     builder.show();
                     //Snackbar.make(findViewById(R.id.drawer_layout), R.string.no_driver_near_you, Snackbar.LENGTH_LONG).show();
                     geoQuery.removeAllListeners();
-                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                     return;
                 } else {
                     DatabaseReference mCustomerDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child("Drivers").child(keyMenor);
@@ -691,11 +693,14 @@ public class CustomerMapActivity extends AppCompatActivity
                                         if(destinationLocation != null) {
                                             driverFound = true;
 
+
                                             AlertDialog.Builder builder = new AlertDialog.Builder(CustomerMapActivity.this);
-                                            builder.setMessage("Su vehículo llegará en los proximos 5/10 minutos, puede visualizar la posición del conductor en el mapa.")
+                                            builder.setMessage("A continuación vamos a buscar el conductor mas cercano a su ubación.")
                                                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialog, int which) {
+                                                            showingDialog1();
+                                                            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                                                             dialog.dismiss();
                                                         }
 
@@ -710,10 +715,10 @@ public class CustomerMapActivity extends AppCompatActivity
 
                                             mCurrentRide.postRideInfo();
 
-                                            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                                             mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
                                             getDriverLocation();
-                                            getDriverInfo();
+                                           //SE REMOVIÓ PARA NO MOSTRAR DATOS getDriverInfo();
                                             getHasRideEnded();
 
 
@@ -738,7 +743,7 @@ public class CustomerMapActivity extends AppCompatActivity
                                             builder.show();
                                             //Snackbar.make(findViewById(R.id.drawer_layout), R.string.no_driver_near_you, Snackbar.LENGTH_LONG).show();
                                             geoQuery.removeAllListeners();
-                                            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                                              mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                                         }
                                     }
                                 }
@@ -806,7 +811,7 @@ public class CustomerMapActivity extends AppCompatActivity
                             });
                     builder.show();
                     //Snackbar.make(findViewById(R.id.drawer_layout), R.string.no_driver_near_you, Snackbar.LENGTH_LONG).show();
-                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                      mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                     return;
                 } else {
 
@@ -888,8 +893,8 @@ public class CustomerMapActivity extends AppCompatActivity
                         mRequest.setEnabled(false);
                     }else{
                         mRequest.setText(getString(R.string.driver_found));
-
                         mRequest.setEnabled(false);
+
                     }
 
                     mCurrentRide.getDriver().setLocation(mDriverLocation);
@@ -1175,6 +1180,53 @@ public class CustomerMapActivity extends AppCompatActivity
             e.printStackTrace();
         }
     }
+
+    // DIALOGO TIMER BUSQUEDA DE CHOFER
+
+    public void showingDialog1() {
+        try {
+            final Dialog dialog1 = new Dialog(CustomerMapActivity.this);
+            dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog1.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                    WindowManager.LayoutParams.MATCH_PARENT);
+            dialog1.setCancelable(false);
+            dialog1.setContentView(R.layout.dialog_ride_review1);
+            dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+            Button mConfirm = dialog1.findViewById(R.id.confirm);
+            final RatingBar mRate = dialog1.findViewById(R.id.rate);
+            TextView mName = dialog1.findViewById(R.id.name);;
+            ImageView mImage = dialog1.findViewById(R.id.image);
+
+            mName.setText(mCurrentRide.getDriver().getName());
+
+            if(mCurrentRide.getDriver().getProfileImage() != null) {
+                if (!mCurrentRide.getDriver().getProfileImage().equals("default")) {
+                    Glide.with(CustomerMapActivity.this).load(mCurrentRide.getDriver().getProfileImage()).apply(RequestOptions.circleCropTransform()).into(mImage);
+                }
+            }
+
+            mConfirm.setOnClickListener(view -> {
+                dialog1.dismiss();
+            });
+            dialog1.show();
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (dialog1.isShowing()){
+                        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                        getDriverInfo();
+                        dialog1.dismiss();
+                    }
+                }
+            }, 30000);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
     /**
@@ -1531,7 +1583,7 @@ public class CustomerMapActivity extends AppCompatActivity
                 autocompleteFragmentTo.setText(destinationLocation.getName());
                 if(pickupLocation != null){
                     pickupMarker = mMap.addMarker(new MarkerOptions().position(pickupLocation.getCoordinates()).title("Origen").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_radios)));
-                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                      mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                 }
             }else if(requestCode == 2){
                 mMap.clear();
@@ -1541,7 +1593,7 @@ public class CustomerMapActivity extends AppCompatActivity
                 autocompleteFragmentFrom.setText(pickupLocation.getName());
                 if(destinationLocation != null){
                     destinationMarker = mMap.addMarker(new MarkerOptions().position(destinationLocation.getCoordinates()).title("Destino").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_radio_filled)));
-                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                       mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                 }
             }
 

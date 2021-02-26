@@ -245,17 +245,17 @@
                 </LinearLayout>
 
                 <Button
-                    android:padding="20sp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
+                    android:id="@+id/request"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
                     android:backgroundTint="@color/verde"
-                    android:textColor="@android:color/white"
+                    android:padding="20sp"
                     android:text="@string/call_uber"
-                    android:id="@+id/request" />
+                    android:textColor="@android:color/white" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </RelativeLayout>
