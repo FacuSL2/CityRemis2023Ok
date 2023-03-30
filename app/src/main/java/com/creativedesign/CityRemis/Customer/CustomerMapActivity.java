@@ -18,6 +18,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import com.google.maps.model.DirectionsResult;
+import com.google.maps.model.DirectionsResult;
 import com.google.maps.DirectionsApiRequest;
 import com.google.maps.DirectionsApi;
 import com.google.maps.DirectionsResult;
