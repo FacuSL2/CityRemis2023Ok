@@ -17,17 +17,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-import com.google.maps.model.DirectionsResult;
-import com.google.maps.model.DirectionsResult;
-import com.google.maps.DirectionsApiRequest;
-import com.google.maps.DirectionsApi;
-import com.google.maps.DirectionsResult;
-import com.google.maps.DirectionsStatus;
-import com.google.maps.model.DirectionsRequest;
-import com.google.maps.model.LatLng;
-import com.google.maps.model.TravelMode;
-import com.google.maps.model.UnitSystem;
-
 
 import androidx.annotation.NonNull;
 
@@ -128,7 +117,6 @@ import com.creativedesign.CityRemis.Objects.TypeObject;
 import com.google.maps.internal.PolylineEncoding;
 import com.google.maps.model.DirectionsResult;
 import com.google.maps.model.DirectionsRoute;
-import com.google.maps.model.TravelMode;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -1720,41 +1708,18 @@ public class CustomerMapActivity extends AppCompatActivity
     /**
      * Get Route from pickup to destination, showing the route to the user
      */
-    public void getRouteToMarker(LatLng origin, LatLng destination1, LatLng destination2) {
-        DirectionsRequest directionsRequest = new DirectionsRequest();
-        directionsRequest.origin = origin;
-        directionsRequest.destination = destination1;
-        directionsRequest.travelMode = TravelMode.DRIVING;
-        directionsRequest.unitSystem = UnitSystem.METRIC;
-        directionsService.route(directionsRequest, new DirectionsCallback() {
-            @Override
-            public void onCallback(DirectionsResult directionsResult, DirectionsStatus directionsStatus) {
-                if (directionsStatus == DirectionsStatus.OK) {
-                    DirectionsRenderer directionsRenderer = new DirectionsRenderer();
-                    directionsRenderer.setDirections(directionsResult);
-                    directionsRenderer.setMap(map);
-                } else {
-                    Window.alert("Error: " + directionsStatus);
-                }
-            }
-        });
-        DirectionsRequest directionsRequest2 = new DirectionsRequest();
-        directionsRequest2.origin = origin;
-        directionsRequest2.destination = destination2;
-        directionsRequest2.travelMode = TravelMode.DRIVING;
-        directionsRequest2.unitSystem = UnitSystem.METRIC;
-        directionsService.route(directionsRequest2, new DirectionsCallback() {
-            @Override
-            public void onCallback(DirectionsResult directionsResult, DirectionsStatus directionsStatus) {
-                if (directionsStatus == DirectionsStatus.OK) {
-                    DirectionsRenderer directionsRenderer = new DirectionsRenderer();
-                    directionsRenderer.setDirections(directionsResult);
-                    directionsRenderer.setMap(map);
-                } else {
-                    Window.alert("Error: " + directionsStatus);
-                }
-            }
-        });
+    private void getRouteToMarker() {
+
+        String serverKey = getResources().getString(R.string.google_maps_key);
+        if (mCurrentRide.getDestination() != null && mCurrentRide.getPickup() != null
+                && mCurrentRide.getDestinationdos() != null){
+            GoogleDirection.withServerKey(serverKey)
+                    .from(mCurrentRide.getPickup().getCoordinates())
+                    .to(mCurrentRide.getDestination().getCoordinates())
+                    .optimizeWaypoints(true)
+                    .transportMode(TransportMode.DRIVING)
+                    .execute(this);
+        }
     }
     private List<Polyline> polylines  = new ArrayList<>();
 
