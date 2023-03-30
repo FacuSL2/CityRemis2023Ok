@@ -43,6 +43,7 @@
     <string name="no_driver_near_you">No se ha encontrado ningún conductor cerca de usted.</string>
     <string name="cancel_ride">Cancelar Viaje</string>
     <string name="price">Precio del viaje:</string>
+    <string name="pricedos">Distancia:</string>
 
     <string name="title_activity_driver_map">Map</string>
     <string name="title_activity_main2">Main2Activity</string>

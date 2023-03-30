@@ -27,12 +27,12 @@
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:adjustViewBounds="true"
                 android:cropToPadding="true"
                 android:layout_marginTop="20dp"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_logotopp1" />
+                app:srcCompat="@drawable/city" />
 
             <ImageView
                 android:layout_width="match_parent"

@@ -98,8 +98,8 @@
             <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
                 android:id="@+id/radioRealButtonGroup"
                 android:visibility="invisible"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="4dp"
                 android:elevation="2dp"
@@ -116,9 +116,9 @@
                 app:selectedBackground="@color/colorPrimaryDark">
 
                 <com.addisonelliott.segmentedbutton.SegmentedButton
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:padding="10dp"
                     app:drawable="@drawable/ic_user_white"
                     app:drawableGravity="top"
@@ -127,9 +127,9 @@
                     app:textColor="@color/white" />
 
                 <com.addisonelliott.segmentedbutton.SegmentedButton
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
                     android:padding="10dp"
                     app:drawable="@drawable/ic_suv"
                     app:drawableGravity="top"

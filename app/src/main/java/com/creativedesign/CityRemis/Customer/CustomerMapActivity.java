@@ -32,8 +32,6 @@ import com.creativedesign.CityRemis.Share;
 import com.creativedesign.CityRemis.TarifasUbik;
 import com.creativedesign.CityRemis.TrabajarenUbik;
 import com.creativedesign.CityRemis.WebUbik;
-import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.maps.DirectionsApiRequest;
 import com.creativedesign.CityRemis.sosact;
 import com.creativedesign.CityRemis.DialogCobrar;
 import com.creativedesign.CityRemis.EventDialogCobrar;
@@ -114,9 +112,6 @@ import com.creativedesign.CityRemis.R;
 import com.creativedesign.CityRemis.Objects.RideObject;
 import com.creativedesign.CityRemis.Adapters.TypeAdapter;
 import com.creativedesign.CityRemis.Objects.TypeObject;
-import com.google.maps.internal.PolylineEncoding;
-import com.google.maps.model.DirectionsResult;
-import com.google.maps.model.DirectionsRoute;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -490,8 +485,10 @@ public class CustomerMapActivity extends AppCompatActivity
             Intent intent = new Autocomplete.IntentBuilder(
                     AutocompleteActivityMode.OVERLAY, Arrays.asList(Place.Field.ID, Place.Field.ADDRESS, Place.Field.NAME, Place.Field.LAT_LNG))
                     .setLocationRestriction(RectangularBounds.newInstance(
-                            new LatLng(-33.883745,-61.195373),
-                                new LatLng(-32.580815,-60.501327))
+                            new LatLng(-35.046198,-58.691563),
+                                new LatLng(-34.316331,-58.235782))
+
+
 
 
                             //new LatLng(-33.563580,-61.206685),
@@ -517,8 +514,8 @@ public class CustomerMapActivity extends AppCompatActivity
             Intent intent = new Autocomplete.IntentBuilder(
                     AutocompleteActivityMode.OVERLAY, Arrays.asList(Place.Field.ID, Place.Field.ADDRESS, Place.Field.NAME, Place.Field.LAT_LNG))
                     .setLocationRestriction(RectangularBounds.newInstance(
-                            new LatLng(-33.883745,-61.195373),
-                            new LatLng(-32.580815,-60.501327))
+                            new LatLng(-35.046198,-58.691563),
+                            new LatLng(-34.316331,-58.235782))
                     )
                     .setTypeFilter(TypeFilter.ADDRESS)
                     .build(getApplicationContext());
@@ -1489,8 +1486,6 @@ public class CustomerMapActivity extends AppCompatActivity
             mMap.setMyLocationEnabled(true);
         }
 
-
-
     }
 
     boolean zoomUpdated = false;
@@ -1820,6 +1815,9 @@ public class CustomerMapActivity extends AppCompatActivity
                 if(pickupLocation != null){
                     pickupMarker = mMap.addMarker(new MarkerOptions().position(pickupLocation.getCoordinates()).title("Origen").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_radios)));
                       mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                    Double price = getPriceTravel(getDistance());
+                    textViewPrecioSolicitud.setText(getString(R.string.price)+"$"+String.format("%.2f",price));
+                    textViewPrecioSolicitud2.setText(getString(R.string.price)+getDistance());
                 }
             }else if(requestCode == 2){
                 mMap.clear();
@@ -1829,7 +1827,6 @@ public class CustomerMapActivity extends AppCompatActivity
                 autocompleteFragmentFrom.setText(pickupLocation.getName());
                 if(destinationLocation != null){
                     destinationMarker = mMap.addMarker(new MarkerOptions().position(destinationLocation.getCoordinates()).title("Destino").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_radio_filled)));
-                    destinationMarker2 = mMap.addMarker(new MarkerOptions().position(destinationLocationdos.getCoordinates()).title("Destino2").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_radio_filled)));
                        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                     Double price = getPriceTravel(getDistance());
                     textViewPrecioSolicitud.setText(getString(R.string.price)+"$"+String.format("%.2f",price));
