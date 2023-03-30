@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.creativedesign.Ubik.Customer.CustomerSettingsActivity"
+    tools:context="com.creativedesign.CityRemis.Customer.CustomerSettingsActivity"
     android:background="@drawable/fondoubikk"
     android:orientation="vertical">
     <androidx.appcompat.widget.Toolbar

@@ -8,6 +8,38 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:707273997364:android:77477a494c1f5a079d1e61",
+        "android_client_info": {
+          "package_name": "com.creativedesign.CityRemis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "707273997364-974e9fuggilqpga7aq7l8duloq30qmnc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUq6zWxqeRomyNR6HJg2lZar3Q1Ts9gvc"
+        },
+        {
+          "current_key": "AIzaSyAQK1JKsgxM_ew6fJw7aaRmiQ4k8bNfQPA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "707273997364-974e9fuggilqpga7aq7l8duloq30qmnc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:707273997364:android:137881cc6c9c153d9d1e61",
         "android_client_info": {
           "package_name": "com.creativedesign.Ubik"
@@ -21,63 +53,8 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAQK1JKsgxM_ew6fJw7aaRmiQ4k8bNfQPA"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "707273997364-974e9fuggilqpga7aq7l8duloq30qmnc.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:707273997364:android:4645b94eabe0b8159d1e61",
-        "android_client_info": {
-          "package_name": "com.creativedesign.PediTuRemis"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "707273997364-974e9fuggilqpga7aq7l8duloq30qmnc.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAQK1JKsgxM_ew6fJw7aaRmiQ4k8bNfQPA"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "707273997364-974e9fuggilqpga7aq7l8duloq30qmnc.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:707273997364:android:32a57a7717a41a269d1e61",
-        "android_client_info": {
-          "package_name": "com.creativedesign.PediTuRemisCH"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "707273997364-974e9fuggilqpga7aq7l8duloq30qmnc.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
+          "current_key": "AIzaSyCUq6zWxqeRomyNR6HJg2lZar3Q1Ts9gvc"
+        },
         {
           "current_key": "AIzaSyAQK1JKsgxM_ew6fJw7aaRmiQ4k8bNfQPA"
         }
@@ -102,11 +79,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "707273997364-mn8vshtdsu1p2r16h0ksmdtq4vjdpid8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.creativedesign.UbikCH",
+            "certificate_hash": "07dad06a25730318d64f49367a1b8a385671c97d"
+          }
+        },
+        {
           "client_id": "707273997364-974e9fuggilqpga7aq7l8duloq30qmnc.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
+        {
+          "current_key": "AIzaSyCUq6zWxqeRomyNR6HJg2lZar3Q1Ts9gvc"
+        },
         {
           "current_key": "AIzaSyAQK1JKsgxM_ew6fJw7aaRmiQ4k8bNfQPA"
         }

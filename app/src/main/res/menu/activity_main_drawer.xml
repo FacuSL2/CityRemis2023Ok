@@ -17,22 +17,10 @@
             />
 
         <item
-            android:id="@+id/tarifas"
-            android:title="Tarifas e Info"
-            android:icon="@drawable/ic_attach_money_black_24dp"
-            />
-        <item
-            android:id="@+id/webubik"
-            android:title="Sitio Web"
-            android:icon="@drawable/ic_language_black_24dp"
-            />
-
-        <item
             android:id="@+id/sos"
             android:title="S.O.S"
             android:icon="@drawable/ic_error_black_24dp"
             />
-
 
         <item
             android:id="@+id/share"
@@ -40,17 +28,6 @@
             android:icon="@drawable/ic_share_black_24dp"
             />
 
-        <item
-            android:id="@+id/sumate"
-            android:title="Trabajar en Ubik"
-            android:icon="@drawable/ic_sedan_car_front"
-            />
-
-        <item
-            android:id="@+id/reclamos"
-            android:title="Reclamos/Consultas"
-            android:icon="@drawable/baseline_person_24"
-            />
 
         <item
             android:id="@+id/logout"

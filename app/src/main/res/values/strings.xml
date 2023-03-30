@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">Ubik</string>
+    <string name="app_name">City</string>
     <string name="phone_driver">Celular</string>
     <string name="call_uber">Solicitar</string>
     <string name="type_5">Auto</string>
-    <string name="type_4">Uber Green</string>
-    <string name="type_3">Uber XL</string>
-    <string name="type_2">Uber Black</string>
+    <string name="type_4">City Green</string>
+    <string name="type_3">City XL</string>
+    <string name="type_2">City Black</string>
     <string name="type_1">Solicitar</string>
     <string name="type_11">Solicitar</string>
     <string name="phone">Celular</string>
@@ -42,6 +42,7 @@
     <string name="not_approved">Su cuenta no está aprobada</string>
     <string name="no_driver_near_you">No se ha encontrado ningún conductor cerca de usted.</string>
     <string name="cancel_ride">Cancelar Viaje</string>
+    <string name="price">Precio del viaje:</string>
 
     <string name="title_activity_driver_map">Map</string>
     <string name="title_activity_main2">Main2Activity</string>
@@ -57,7 +58,7 @@
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCLxJ9VD-AHGGSemoQkSxATQ5B7qjkN6Tg</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAk0qaxB3yQBzYPsew8n3A3iGCOrqHVfB0</string>
 
 
     <string name="action_example">Example action</string>
@@ -251,6 +252,8 @@
 ]
   </string>
     <string name="to">Hacia...</string>
+    <string name="to2">Agregar Tercer Destino...</string>
+    <string name="to3">Agregar Cuarto Destino...</string>
     <string name="from">Desde...</string>
     <string name="estimated_price">Precio estimado:</string>
     <string name="no_phone_call_permissions">No diste permisos de llamadas telefónicas</string>

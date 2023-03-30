@@ -6,17 +6,7 @@
     android:background="@drawable/fondoubik"
     >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        >
-        <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/ic_logotopp1"></ImageView>
-    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,8 +19,8 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:background="#005482"
-            android:text="YA TENGO UNA CUENTA"
+            android:background="#048976"
+            android:text="INGRESAR"
             android:id="@+id/login"
             android:textColor="@android:color/white" />
 
@@ -39,7 +29,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:background="#004360"
+            android:background="#212121"
             android:text="CREAR NUEVA CUENTA"
             android:id="@+id/registration"
             android:textColor="@android:color/white" />

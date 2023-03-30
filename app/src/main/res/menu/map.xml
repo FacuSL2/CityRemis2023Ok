@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.creativedesign.Ubik.Driver.DriverMapActivity">
+    tools:context="com.creativedesign.CityRemis.Driver.DriverMapActivity">
     <item
         android:id="@+id/action_example"
         android:showAsAction="withText|ifRoom"
